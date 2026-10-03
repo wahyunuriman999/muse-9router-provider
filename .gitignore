@@ -1,0 +1,10 @@
+# Local config & secrets — never commit
+.env
+*.log
+muse-9router-provider-data/
+.muse-9router-provider/
+
+# OS / editor noise
+.DS_Store
+*~
+*.swp

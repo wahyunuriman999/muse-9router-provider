@@ -1,0 +1,23 @@
+# Rendered by scripts/setup-relay.sh — do not edit by hand.
+# Placeholders: __HOME__ __DATA_DIR__ __KEY_FILE__ __PORT__ __MODEL_ID__ __REPO__
+[Unit]
+Description=Muse Relay Bridge (OpenAI-compatible async relay)
+After=network.target
+
+[Service]
+Type=simple
+User=root
+Environment=HOME=__HOME__
+Environment=MUSE_RELAY_DATA_DIR=__DATA_DIR__
+Environment=MUSE_RELAY_KEY_FILE=__KEY_FILE__
+Environment=MUSE_RELAY_PORT=__PORT__
+Environment=MUSE_RELAY_MODEL_ID=__MODEL_ID__
+WorkingDirectory=__REPO__/relay
+ExecStart=/usr/bin/python3 __REPO__/relay/bridge.py
+Restart=always
+RestartSec=5
+StandardOutput=append:__DATA_DIR__/bridge.log
+StandardError=append:__DATA_DIR__/bridge.log
+
+[Install]
+WantedBy=multi-user.target

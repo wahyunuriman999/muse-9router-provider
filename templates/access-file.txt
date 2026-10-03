@@ -1,0 +1,28 @@
+9Router + Muse provider access
+==============================
+
+Base URL : {{PUBLIC_BASE_URL}}/v1
+API key  : name "{{KEY_NAME}}" — the secret below was minted once, keep it safe
+           {{API_KEY_SECRET}}
+Model    : {{PROVIDER_PREFIX}}/{{RELAY_MODEL_ID}}
+
+How to call (OpenAI-compatible):
+
+  curl -H "Authorization: Bearer {{API_KEY_SECRET}}" \
+       -H "Content-Type: application/json" \
+       -d '{"model":"{{PROVIDER_PREFIX}}/{{RELAY_MODEL_ID}}",
+            "messages":[{"role":"user","content":"Hello"}]}' \
+       {{PUBLIC_BASE_URL}}/v1/chat/completions
+
+What this is, honestly:
+- This model is a Muse agent answering as an async relay with its own
+  memory, tools, and skills — NOT a synchronous raw-model API.
+- Typical answer time: 2-6 minutes per request. The HTTP connection is
+  held open up to 600 seconds waiting for the answer.
+- The URL, key name, and model ID above are fixed on the provider side
+  and self-healing. The public address rides on a free tunnel; in the
+  rare case the address itself is lost, the provider will say so directly
+  and issue a new file.
+
+Streaming: pass "stream": true for a single-chunk SSE response.
+List models: GET {{PUBLIC_BASE_URL}}/v1/models with the same Bearer key.
