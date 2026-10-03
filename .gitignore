@@ -8,3 +8,6 @@ muse-9router-provider-data/
 .DS_Store
 *~
 *.swp
+
+__pycache__/
+*.pyc
